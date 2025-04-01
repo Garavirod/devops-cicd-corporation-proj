@@ -52,4 +52,48 @@ resource "aws_subnet" "private_subnets" {
   }
 }
 
+// Internet Gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.corp_vpc.id
+  tags = {
+    Name = "${var.project_name}-igw"
+    ManagedBy = "Terraform/setup - ${var.project_name}"
+  }
+}
 
+// Public route Table
+resource "aws_route_table" "public_rt" {
+  vpc_id = aws_vpc.corp_vpc.id
+  route = {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+  tags = {
+    Name = "${var.project_name}-public-rt"
+    ManagedBy = "Terraform/setup - ${var.project_name}"
+  }
+}
+
+// Private route Table
+resource "aws_route_table" "private_rt" {
+  vpc_id = aws_vpc.corp_vpc.id
+  tags = {
+    Name = "${var.project_name}-private-rt"
+    ManagedBy = "Terraform/setup - ${var.project_name}"
+  }
+}
+
+// Route Table Associations
+resource "aws_route_table_association" "public_rt_association" {
+  count = length(var.public_subnets_cidrs)
+  subnet_id = aws_subnet.public_subnets[count.index].id
+  route_table_id = aws_route_table.public_rt.id
+}
+
+resource "aws_route_table_association" "private_rt_association" {
+  count = length(var.private_subnets_cidrs)
+  subnet_id = aws_subnet.private_subnets[count.index].id
+  route_table_id = aws_route_table.private_rt.id
+}
+
+ 
