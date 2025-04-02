@@ -6,3 +6,9 @@ module "networking" {
     private_subnets_cidrs = ["11.0.3.0/16", "11.0.4.0/16"]
     availability_zones = var.availability_zone
 }
+
+module "security_groups" {
+    source = "./security_groups"
+    project_name = var.project_name
+    environment = var.environment
+}

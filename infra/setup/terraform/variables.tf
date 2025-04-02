@@ -4,6 +4,11 @@ variable "project_name" {
   default     = "bookyland-corp"
 }
 
+variable "environment" {
+  description = "The environment to use for the project"
+  type        = string
+}
+
 // VPC
 variable "availability_zone" {
   description = "The availability zone to use for the VPC"
