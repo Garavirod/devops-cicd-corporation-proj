@@ -8,8 +8,9 @@ parameters:
   - name: poolName
     type: string
     default: Default
-  
-
+    values:
+      - Default
+      - test_ec2_agent_ado
 stages:
   - stage: deploy_setup_dev
     displayName: Deploy Setup Dev
