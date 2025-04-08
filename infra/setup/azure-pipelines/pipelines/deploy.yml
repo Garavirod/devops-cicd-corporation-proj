@@ -10,7 +10,7 @@ parameters:
     default: Default
   
 
-# stages:
+stages:
   - stage: deploy_setup_dev
     displayName: Deploy Setup Dev
     pool:

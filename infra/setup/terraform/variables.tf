@@ -9,6 +9,11 @@ variable "environment" {
   type        = string
 }
 
+variable "aws_region" {
+  description = "The AWS region to use for the project"
+  type        = string  
+}
+
 // VPC
 variable "availability_zone" {
   description = "The availability zone to use for the VPC"

@@ -1,0 +1,11 @@
+variables:
+  # Terraform input variables
+  terraformInputVariables: |
+    -var="aws_region=$(awsRegion)" \
+    -var="project_name=$(projectName)" \
+  terraformBackendConfig: |
+    -backend-config="region=$(awsRegion)" \
+    -backend-config="bucket=$(TFBucketState)" \
+    -backend-config="key=$(projectName)/setup/tf-state-setup" \
+    -backend-config="dynamodb_table=$(TFDynamoDBTableName)" \
+    -backend-config="encrypt=true"
