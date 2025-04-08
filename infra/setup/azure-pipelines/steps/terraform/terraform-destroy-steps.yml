@@ -1,0 +1,31 @@
+steps:
+  # Terraform Init
+  - task: Bash@3
+    displayName: 'Terraform Init'
+    inputs:
+      targetType: 'inline'
+      script: |
+       cd $(terraformWorkingDirectory)
+       terraform init $(terraformBackendConfig)
+  
+  # Terraform validate
+  - task: Bash@3
+    displayName: 'Terraform Validate'
+    inputs:
+      targetType: 'inline'
+      script: |
+       cd $(terraformWorkingDirectory)
+       terraform validate $(terraformBackendConfig)
+
+  # Terraform destroy
+  - task: Bash@3
+    displayName: 'Terraform Destroy'
+    inputs:
+      targetType: 'inline'
+      script: |
+       cd $(terraformWorkingDirectory)
+       terraform destroy \
+          -input=false \ 
+          -auto-approve \
+          $(terraformInputVariables)
+  

@@ -1,0 +1,36 @@
+steps:
+  # Terraform Init
+  - task: Bash@3
+    displayName: 'Terraform Init'
+    inputs:
+      targetType: 'inline'
+      script: |
+       cd $(terraformWorkingDirectory)
+       terraform init $(terraformBackendConfig)
+  
+  # Terraform validate
+  - task: Bash@3
+    displayName: 'Terraform Validate'
+    inputs:
+      targetType: 'inline'
+      script: |
+       cd $(terraformWorkingDirectory)
+       terraform validate $(terraformBackendConfig)
+
+  # Terraform plan
+  - task: Bash@3
+    displayName: 'Terraform Plan'
+    inputs:
+      targetType: 'inline'
+      script: |
+       cd $(terraformWorkingDirectory)
+       terraform plan -out=tfplan -input=false $(terraformInputVariables)
+  
+  # Terraform apply
+  - task: Bash@3
+    displayName: 'Terraform Apply'
+    inputs:
+      targetType: 'inline'
+      script: |
+       cd $(terraformWorkingDirectory)
+       terraform apply -input=false -auto-approve tfplan
