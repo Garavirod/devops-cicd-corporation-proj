@@ -33,26 +33,19 @@ stages:
     displayName: Deploy Setup Dev
     pool:
       name: ${{ parameters.poolName }} 
-    # variables:
-      # link azure devops variable group
-      # link environment 
-      # link terraform input variables
-      # - template: ../vars/terraform-input variables.yml
     jobs:
       - job: deploy_setup_dev
         displayName: Deploy Setup Dev
         steps: 
-          # Terraform deployment
-          # - template: ../steps/terraform/terraform-deploy-steps.yml
           # Clean workspace
-          ${{ if or(eq(parameters.environmentName, 'dev'), eq($(Build.SourceBranchName), 'refs/heads/development')) }}:
-            - task: bash@3
-              displayName: Clean workspace
-              inputs:
-                targetType: 'inline'
-                script: |
+          - ${{ if or(eq(parameters.environmentName, 'dev'), eq(variables['Build.SourceBranchName'], 'development')) }}:
+              - task: Bash@3
+                displayName: Clean workspace
+                inputs:
+                  targetType: 'inline'
+                  script: |
                     echo "Deploying into test environment..."
                     echo "Branch name: $(Build.SourceBranchName)"
                     echo "Env: $(environmentName)"
-              
+
 
