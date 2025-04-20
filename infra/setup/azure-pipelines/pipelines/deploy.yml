@@ -22,12 +22,14 @@ parameters:
       - Default
       - test_ec2_agent_ado
   - name: environmentName
+    displayName: |
+      Environment to deploy. (Note: test and prod environment only works when the branch is main)
     type: string
     default: dev
     values:
-      - dev
-      - test
-      - prod
+        - dev    
+        - poc
+        - prod
 stages:
   - stage: deploy_setup_dev
     displayName: Deploy Setup Dev

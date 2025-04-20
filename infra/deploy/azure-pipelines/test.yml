@@ -4,3 +4,5 @@ variables:
     value: Default
   - name: environmentName
     value: dev
+  - name: resourceGroupName
+    value: myResourceGroup
