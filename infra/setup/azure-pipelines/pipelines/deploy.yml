@@ -2,8 +2,18 @@
 # Set up deploy #
 #################
 
-trigger: none
+# Trigger automatically on changes to the development branch
+trigger:
+  branches:
+    include:
+      - development
+  paths:
+    exclude:
+      - infra/deploy
+# No pull request trigger
 pr: none
+
+# Parameters for the pipeline
 parameters:
   - name: poolName
     type: string
@@ -11,20 +21,37 @@ parameters:
     values:
       - Default
       - test_ec2_agent_ado
+  - name: environmentName
+    type: string
+    default: dev
+    values:
+      - dev
+      - test
+      - prod
 stages:
   - stage: deploy_setup_dev
     displayName: Deploy Setup Dev
     pool:
       name: ${{ parameters.poolName }} 
-    variables:
-      # link azure devops variable group
-      # link environment 
-      # link terraform input variables
-      - template: ../vars/terraform-input variables.yml
     jobs:
       - job: deploy_setup_dev
         displayName: Deploy Setup Dev
         steps: 
-          # Terraform deployment
-          - template: ../steps/terraform/terraform-deploy-steps.yml
           # Clean workspace
+          - ${{ if or(eq(parameters.environmentName, 'dev'), eq(variables['Build.SourceBranchName'], 'development')) }}:
+              - task: Bash@3
+                displayName: Dummy task
+                inputs:
+                  targetType: 'inline'
+                  script: |
+                    echo "Deploying into test environment..."
+                    echo "Branch name: $(Build.SourceBranchName)"
+                    echo "Env: ${{ parameters.environmentName }}"
+          - ${{ else }}:
+              - task: Bash@3
+                displayName: Dummy task production
+                inputs:
+                  targetType: 'inline'
+                  script: |
+                    echo "Deploying into production environment..."                    
+

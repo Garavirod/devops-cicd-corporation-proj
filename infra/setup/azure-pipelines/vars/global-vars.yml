@@ -1,0 +1,6 @@
+variables:
+  # Define the variables for the pipeline
+  - name: poolName
+    value: Default
+  - name: environmentName
+    value: dev
