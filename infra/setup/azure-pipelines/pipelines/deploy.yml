@@ -27,9 +27,7 @@ parameters:
     type: string
     default: dev
     values:
-      - ${ if eq(variables['Build.SourceBranchName'], 'development') }:
-        - dev
-      - ${ if eq(variables['Build.SourceBranchName'], 'main') }:        
+        - dev    
         - poc
         - prod
 stages:
