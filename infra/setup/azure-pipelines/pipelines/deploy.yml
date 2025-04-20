@@ -45,19 +45,14 @@ stages:
           # Terraform deployment
           # - template: ../steps/terraform/terraform-deploy-steps.yml
           # Clean workspace
-          - task: bash@3
-            displayName: Clean workspace
-            inputs:
-              targetType: 'inline'
-              ${{ if or(eq(parameters.environmentName, 'dev'), eq($(Build.SourceBranchName), 'refs/heads/development')) }}:
+          ${{ if or(eq(parameters.environmentName, 'dev'), eq($(Build.SourceBranchName), 'refs/heads/development')) }}:
+            - task: bash@3
+              displayName: Clean workspace
+              inputs:
+                targetType: 'inline'
                 script: |
-                  echo "Deploying into test environment..."
-                  echo "Branch name: $(Build.SourceBranchName)"
-                  echo "Env: $(environmentName)"
-              ${{ if eq(parameters.environmentName, 'test') }}:
-                script: |
-                  echo "Cleaning workspace..."
-                  rm -rf $(Pipeline.Workspace)/*
-                  echo "Deploying into ."
-
+                    echo "Deploying into test environment..."
+                    echo "Branch name: $(Build.SourceBranchName)"
+                    echo "Env: $(environmentName)"
+              
 
