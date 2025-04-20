@@ -40,12 +40,18 @@ stages:
           # Clean workspace
           - ${{ if or(eq(parameters.environmentName, 'dev'), eq(variables['Build.SourceBranchName'], 'development')) }}:
               - task: Bash@3
-                displayName: Clean workspace
+                displayName: Dummy task
                 inputs:
                   targetType: 'inline'
                   script: |
                     echo "Deploying into test environment..."
                     echo "Branch name: $(Build.SourceBranchName)"
-                    echo "Env: $(environmentName)"
-
+                    echo "Env: ${{ parameters.environmentName }}"
+          - ${{ else }}:
+              - task: Bash@3
+                displayName: Dummy task production
+                inputs:
+                  targetType: 'inline'
+                  script: |
+                    echo "Deploying into production environment..."                    
 
