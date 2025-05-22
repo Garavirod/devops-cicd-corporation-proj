@@ -1,18 +1,13 @@
-parameters:
-  - name: poolName
-    type: string
-    default: '$(poolName)'
-
 stages:
-  - stage: deploy_setup_dev
-    displayName: Deploy Setup Dev
+  - stage: deploy_infra_setup_dev
+    displayName: Deploy infra Setup into Dev
     pool:
-      name: ${{ parameters.poolName }}
+      name: $(TestAgentPoolName)
     variables:
       # link azure devops variable group
-      # link environment 
+      # link variables per environment 
       # link terraform input variables
-      - template: ../vars/terraform-input variables.yml
+      - template: ../vars/terraform-input-variables.yml
     jobs:
       - job: deploy_setup_dev
         displayName: Deploy Setup Dev
@@ -20,4 +15,5 @@ stages:
           # Terraform deployment
           - template: ../steps/terraform/terraform-deploy-steps.yml
           # Clean workspace
+          - template: ../steps/clean-workspace-steps.yml
             

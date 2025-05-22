@@ -10,7 +10,7 @@ variable "environment" {
 
 
 
-// Security Groups
+// EC2 Security Groups
 resource "aws_security_group" "sg_ec2" {
   name        = "${var.project_name}-ec2-sg"
   description = "Security group for EC2 instances"

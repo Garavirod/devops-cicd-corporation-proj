@@ -2,20 +2,16 @@
 # Set up deploy #
 #################
 
-# Trigger automatically on changes to the development branch
-trigger:
-  branches:
-    include:
-      - development
-  paths:
-    exclude:
-      - infra/deploy
+# Manual trigger
+trigger: none
 # No pull request trigger
 pr: none
 
 # Parameters for the pipeline
 parameters:
   - name: poolName
+    displayName: |
+      Pool name to use.
     type: string
     default: Default
     values:
@@ -23,13 +19,17 @@ parameters:
       - test_ec2_agent_ado
   - name: environmentName
     displayName: |
-      Environment to deploy. (Note: test and prod environment only works when the branch is main)
+      Environment to deploy.
     type: string
     default: dev
     values:
         - dev    
         - poc
         - prod
+variables:
+  # Link global variables
+  - template: ../../shared/vars/global-variables.yml
+
 stages:
   - stage: deploy_setup_dev
     displayName: Deploy Setup Dev
