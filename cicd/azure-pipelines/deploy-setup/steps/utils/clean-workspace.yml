@@ -1,0 +1,9 @@
+steps:
+  - task: Bash@3
+    displayName: Clean workspace
+    inputs:
+      targetType: 'inline'
+      script: |
+        rm -rf $(Build.SourcesDirectory)/*
+        ls -la $(Build.SourcesDirectory)
+        echo "Workspace cleaned."

@@ -24,7 +24,6 @@ parameters:
     default: dev
     values:
         - dev    
-        - poc
         - prod
 variables:
   # Link global variables
