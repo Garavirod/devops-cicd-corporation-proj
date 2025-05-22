@@ -1,0 +1,59 @@
+variables:
+  ###########
+  # General #
+  ###########
+  # Project Name
+  - name: projectName
+    value: cicd-corp
+    type: string
+
+  ###################
+  # ADO Agent Pools #
+  ###################
+  # Agent Pool for Dev
+  - name: DevAgentPool
+    value: Default
+    type: string
+  # Agent Pool for Prod
+  - name: ProdAgentPool
+    value: ec2_prod_agent_pool_ado
+    type: string
+  
+  #######
+  # AWS #
+  #######
+  # AWS Region for Dev
+  - name: AwsDevRegion
+    value: us-east-1
+    type: string
+  # AWS Region for Prod
+  - name: AwsProdRegion
+    value: us-east-1
+    type: string
+
+  #############
+  # Terraform #
+  #############
+  # Terraform Backend Deployment
+  - name: TFBucketStateDev
+    value: cicd-corp-terraform-state-dev
+    type: string
+  - name: TFDynamoDBTableDev
+    value: cicd-corp-terraform-state-lock-dev
+    type: string
+  # Terraform Backend Production
+  - name: TFBucketStateProd
+    value: cicd-corp-terraform-state-prod
+    type: string
+  - name: TFDynamoDBTableProd
+    value: cicd-corp-terraform-state-lock-prod
+    type: string
+  # Terraform Working Directory for Setup
+  - name: TerraformSetupWorkingDirectory
+    value: $(Build.SourceDirectory)/infra/terraform/infra-setup    
+    type: string
+  # Terraform Working Directory for Service
+  - name: TerraformServiceWorkingDirectory
+    value: $(Build.SourceDirectory)/infra/terraform/infra-service
+    type: string
+  

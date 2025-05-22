@@ -2,18 +2,25 @@ stages:
   - stage: deploy_infra_setup_dev
     displayName: Deploy infra Setup into Dev
     pool:
-      name: $(TestAgentPoolName)
+      name: $(DevAgentPool)
     variables:
-      # link azure devops variable group
-      # link variables per environment 
+      # link variables per environment
+      - template: ../vars/dev/dev-vars.yml
+      # link terraform backend configuration for dev
+      - template: ../vars/terraform/terraform-backend-configuration.yml
+        parameters:
+          terraformBackendBucketName: $(TFBucketStateDev)
+          terraformBackendDynamoDBTableName: $(TFDynamoDBTableDev)
       # link terraform input variables
-      - template: ../vars/terraform-input-variables.yml
+      - template: ../vars/terraform/terraform-input-variables.yml
     jobs:
       - job: deploy_setup_dev
         displayName: Deploy Setup Dev
         steps: 
           # Terraform deployment
           - template: ../steps/terraform/terraform-deploy-steps.yml
+            parameters:
+              terraformWorkingDirectory: $(TerraformSetupWorkingDirectory)
           # Clean workspace
           - template: ../steps/clean-workspace-steps.yml
             

@@ -7,37 +7,41 @@ pr: none
 
 # Parameters for the pipeline
 parameters:
-  - name: poolName
-    displayName: |
-      Pool name to use.
-    type: string
-    default: Default
-    values:
-      - Default
-      - test_ec2_agent_ado
-  - name: environmentName
-    displayName: |
-      Environment to deploy.
+  - name: environmentNameToDestroy
+    displayName: Environment to destroy.
     type: string
     default: dev
     values:
         - dev    
-        - poc
         - prod
 variables:
   # Link global variables
-  - template: ../../shared/vars/global-variables.yml
+  - template: ../../shared/vars/global-shared-variables.yml
 
 stages:
-  - stage: Destroy_Setup_Stage
-    displayName: Destroy Setup ${{ ]parameters.environmentName }}
-    pool:
-      name: ${{ parameters.poolName }}
-    jobs:
-      - job: Destroy_Setup_Job
-        displayName: Destroy Setup ${{ parameters.environmentName }}
-        steps: 
-          # Terraform destroy
-          - template: ../steps/terraform/terraform-destroy-steps.yml
-          # clean workspace
-          - template: ../steps/clean-workspace.yml
+  - if{{ eq(parameters.environmentNameToDestroy, 'dev') }}:
+    - stage: Destroy_Setup_Destroy_Stage
+      displayName: Destroy Setup ${{ parameters.environmentNameToDestroy }}
+      pool:
+        name: $(TestAgentPool)
+      jobs:
+        - job: Destroy_Setup_Destroy_Job
+          displayName: Destroy Setup ${{ parameters.environmentNameToDestroy }}
+          steps: 
+            # Terraform destroy
+            - template: ../steps/terraform/terraform-destroy-steps.yml
+            # clean workspace
+            - template: ../steps/clean-workspace.yml
+  - ${{ else }}:
+    - stage: Destroy_Setup_Destroy_Stage
+      displayName: Destroy Setup ${{ parameters.environmentNameToDestroy }}
+      pool:
+        name: $(ProdAgentPool)
+      jobs:
+        - job: Destroy_Setup_Destroy_Job
+          displayName: Destroy Setup ${{ parameters.environmentNameToDestroy }}
+          steps: 
+            # Terraform destroy
+            - template: ../steps/terraform/terraform-destroy-steps.yml
+            # clean workspace
+            - template: ../steps/clean-workspace.yml

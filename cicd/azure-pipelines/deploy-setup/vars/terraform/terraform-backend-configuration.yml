@@ -1,0 +1,13 @@
+parameters:
+  - name: TFS3BucketName
+    type: string
+  - name: TFDynamoDBTableName
+    type: string
+
+variables:
+  terraformBackendConfig: |
+    -backend-config="region=$(awsRegion)" \
+    -backend-config="bucket=${{ parameters.TFBucketState }}" \
+    -backend-config="key=$(projectName)/setup/tf-state-setup" \
+    -backend-config="dynamodb_table=${{ parameters.TFDynamoDBTable }}" \
+    -backend-config="encrypt=true"

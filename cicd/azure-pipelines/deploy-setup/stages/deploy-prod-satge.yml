@@ -1,0 +1,20 @@
+stages:
+  - stage: deploy_infra_setup_prod
+    displayName: Deploy infra Setup into Prod
+    pool:
+      name: $(ProdAgentPool)
+    variables:
+      # link azure devops variable group
+      # link variables per environment 
+      # link terraform input variables
+      - template: ../vars/terraform-input-variables.yml
+    jobs:
+      - job: deploy_infra_setup_prod_job
+        displayName: Deploy Setup Prod
+        steps: 
+          - task: Bash@3
+            displayName: Dummy task production
+            inputs:
+              targetType: 'inline'
+              script: |
+                echo "Deploying into production environment..."      

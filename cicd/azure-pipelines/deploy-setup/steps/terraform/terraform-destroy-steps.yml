@@ -1,3 +1,7 @@
+parameters:
+  - name: terraformWorkingDirectory
+    type: string
+
 steps:
   # Terraform Init
   - task: Bash@3
@@ -5,7 +9,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-       cd $(terraformWorkingDirectory)
+       cd ${{ parameters.terraformWorkingDirectory }}
        terraform init $(terraformBackendConfig)
   
   # Terraform validate
@@ -17,13 +21,22 @@ steps:
        cd $(terraformWorkingDirectory)
        terraform validate $(terraformBackendConfig)
 
+  # Terraform plan
+  - task: Bash@3
+    displayName: 'Terraform Plan'
+    inputs:
+      targetType: 'inline'
+      script: |
+       cd ${{ parameters.terraformWorkingDirectory }}
+       terraform plan -out=tfplan -input=false $(terraformInputVariables)
+
   # Terraform destroy
   - task: Bash@3
     displayName: 'Terraform Destroy'
     inputs:
       targetType: 'inline'
       script: |
-       cd $(terraformWorkingDirectory)
+       cd ${{ parameters.terraformWorkingDirectory }}
        terraform destroy \
           -input=false \ 
           -auto-approve \

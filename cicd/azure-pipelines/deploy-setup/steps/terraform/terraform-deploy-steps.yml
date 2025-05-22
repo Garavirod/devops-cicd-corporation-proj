@@ -1,3 +1,7 @@
+parameters:
+  - name: terraformWorkingDirectory
+    type: string
+
 steps:
   # Terraform Init
   - task: Bash@3
@@ -5,7 +9,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-       cd $(terraformWorkingDirectory)
+       cd ${{ parameters.terraformWorkingDirectory }}
        terraform init $(terraformBackendConfig)
   
   # Terraform validate
@@ -23,7 +27,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-       cd $(terraformWorkingDirectory)
+       cd ${{ parameters.terraformWorkingDirectory }}
        terraform plan -out=tfplan -input=false $(terraformInputVariables)
   
   # Terraform apply
@@ -32,5 +36,5 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-       cd $(terraformWorkingDirectory)
+       cd ${{ parameters.terraformWorkingDirectory }}
        terraform apply -input=false -auto-approve tfplan

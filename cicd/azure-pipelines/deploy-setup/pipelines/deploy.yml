@@ -8,18 +8,9 @@ trigger: none
 pr: none
 
 # Parameters for the pipeline
-parameters:
-  - name: poolName
-    displayName: |
-      Pool name to use.
-    type: string
-    default: Default
-    values:
-      - Default
-      - test_ec2_agent_ado
-  - name: environmentName
-    displayName: |
-      Environment to deploy.
+parameters: 
+  - name: environmentNameToDeploy
+    displayName: Environment to deploy.
     type: string
     default: dev
     values:
@@ -27,32 +18,12 @@ parameters:
         - prod
 variables:
   # Link global variables
-  - template: ../../shared/vars/global-variables.yml
+  - template: ../../shared/vars/global-shared-variables.yml
 
 stages:
-  - stage: deploy_setup_dev
-    displayName: Deploy Setup Dev
-    pool:
-      name: ${{ parameters.poolName }} 
-    jobs:
-      - job: deploy_setup_dev
-        displayName: Deploy Setup Dev
-        steps: 
-          # Clean workspace
-          - ${{ if or(eq(parameters.environmentName, 'dev'), eq(variables['Build.SourceBranchName'], 'development')) }}:
-              - task: Bash@3
-                displayName: Dummy task
-                inputs:
-                  targetType: 'inline'
-                  script: |
-                    echo "Deploying into test environment..."
-                    echo "Branch name: $(Build.SourceBranchName)"
-                    echo "Env: ${{ parameters.environmentName }}"
-          - ${{ else }}:
-              - task: Bash@3
-                displayName: Dummy task production
-                inputs:
-                  targetType: 'inline'
-                  script: |
-                    echo "Deploying into production environment..."                    
+ # Clean workspace
+  - ${{ if eq(parameters.environmentNameToDeploy, 'dev') }}:
+      - template: ../stages/deploy-dev-stage.yml
+  - ${{ else }}:
+      - template: ../stages/deploy-prod-stage.yml   
 

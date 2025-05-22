@@ -1,0 +1,11 @@
+variables:
+  - name: environment
+    type: string
+    value: dev-usa
+  #######
+  # AWS #
+  #######
+  # AWS Region for Dev
+  - name: awsRegion
+    type: string
+    value: $(AwsDevRegion)
