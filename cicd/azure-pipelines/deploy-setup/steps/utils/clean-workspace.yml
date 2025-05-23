@@ -1,6 +1,7 @@
 steps:
   - task: Bash@3
     displayName: Clean workspace
+    condition: always()
     inputs:
       targetType: 'inline'
       script: |

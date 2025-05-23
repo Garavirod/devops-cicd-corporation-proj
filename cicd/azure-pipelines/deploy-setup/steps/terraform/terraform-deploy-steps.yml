@@ -20,7 +20,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-       cd $(TerraformWorkingDirectory)
+       cd ${{ parameters.TerraformWorkingDirectory }}
        terraform validate $(TerraformBackendConfig)
 
   # Terraform plan
