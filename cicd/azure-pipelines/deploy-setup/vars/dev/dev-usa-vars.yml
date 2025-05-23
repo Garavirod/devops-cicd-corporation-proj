@@ -21,4 +21,4 @@ variables:
 
   # Terraform TFVars File Name location
   - name: TFVarsFileNameLocation
-    value: $(Build.SourcesDirectory)/infra/terraform/infra-setup/dev/dev.tfvars
+    value: infra/terraform/infra-setup/dev/dev.tfvars

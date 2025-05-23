@@ -41,8 +41,8 @@ variables:
     value: cicd-corp-terraform-state-lock-prod    
   # Terraform Working Directory for Setup
   - name: TerraformSetupWorkingDirectory
-    value: $(Build.SourcesDirectory)/infra/terraform/infra-setup        
+    value: infra/terraform/infra-setup        
   # Terraform Working Directory for Service
   - name: TerraformServiceWorkingDirectory
-    value: $(Build.SourcesDirectory)/infra/terraform/infra-service    
+    value: infra/terraform/infra-service    
   
