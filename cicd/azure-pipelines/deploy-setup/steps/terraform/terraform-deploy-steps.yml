@@ -5,6 +5,14 @@ parameters:
     type: string
 
 steps:
+  # Configure AWS credentials
+  - task: AWSCLI@1
+    displayName: 'Configure AWS Credentials'
+    inputs:
+      awsCredentials: '$(AWSServiceConnection)'
+      regionName: '$(awsRegion)'
+      command: 'configure'
+
   # Terraform Init
   - task: Bash@3
     displayName: 'Terraform Init'
