@@ -7,26 +7,33 @@ pr: none
 
 # Parameters for the pipeline
 parameters:
-  - name: environmentNameToDestroy
+  - name: EnvironmentNameToDestroy
     displayName: Environment to destroy.
     type: string
     default: dev
     values:
         - dev    
         - prod
+  - name: InfraToDestroy
+    displayName: Infrastructure to destroy.
+    type: string
+    required: true
+    values:
+        - infra-setup
+        - infra-service        
 variables:
   # Link global variables
   - template: ../../shared/vars/global-shared-variables.yml
 
 stages:
-  - if{{ eq(parameters.environmentNameToDestroy, 'dev') }}:
+  - if{{ eq(parameters.EnvironmentNameToDestroy, 'dev') }}:
     - stage: Destroy_Setup_Destroy_Stage
-      displayName: Destroy Setup ${{ parameters.environmentNameToDestroy }}
+      displayName: Destroy Setup ${{ parameters.EnvironmentNameToDestroy }}
       pool:
         name: $(TestAgentPool)
       jobs:
         - job: Destroy_Setup_Destroy_Job
-          displayName: Destroy Setup ${{ parameters.environmentNameToDestroy }}
+          displayName: Destroy Setup ${{ parameters.EnvironmentNameToDestroy }}
           steps: 
             # Terraform destroy
             - template: ../steps/terraform/terraform-destroy-steps.yml
@@ -37,12 +44,12 @@ stages:
             - template: ../steps/clean-workspace.yml
   - ${{ else }}:
     - stage: Destroy_Setup_Destroy_Stage
-      displayName: Destroy Setup ${{ parameters.environmentNameToDestroy }}
+      displayName: Destroy Setup ${{ parameters.EnvironmentNameToDestroy }}
       pool:
         name: $(ProdAgentPool)
       jobs:
         - job: Destroy_Setup_Destroy_Job
-          displayName: Destroy Setup ${{ parameters.environmentNameToDestroy }}
+          displayName: Destroy Setup ${{ parameters.EnvironmentNameToDestroy }}
           steps: 
             # Terraform destroy
             - template: ../steps/terraform/terraform-destroy-steps.yml
