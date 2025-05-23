@@ -9,6 +9,5 @@ variables:
     -backend-config="region=$(awsRegion)" \
     -backend-config="bucket=${{ parameters.TFS3BucketName }}" \
     -backend-config="key=$(projectName)/setup/tf-state-setup" \
-    -backend-config="path=backend-config.tf" \
     -backend-config="dynamodb_table=${{ parameters.TFDynamoDBTableName }}" \
     -backend-config="encrypt=true"
