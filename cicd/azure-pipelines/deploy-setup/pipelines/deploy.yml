@@ -9,7 +9,7 @@ pr: none
 
 # Parameters for the pipeline
 parameters: 
-  - name: environmentNameToDeploy
+  - name: EnvironmentNameToDeploy
     displayName: Environment to deploy.
     type: string
     default: dev
@@ -22,8 +22,8 @@ variables:
 
 stages:
  # Clean workspace
-  - ${{ if eq(parameters.environmentNameToDeploy, 'dev') }}:
-      - template: ../stages/deploy-dev-stage.yml
+  - ${{ if eq(parameters.EnvironmentNameToDeploy, 'dev') }}:
+    - template: ../stages/deploy-dev-stage.yml
   - ${{ else }}:
-      - template: ../stages/deploy-prod-stage.yml   
+    - template: ../stages/deploy-prod-stage.yml   
 
