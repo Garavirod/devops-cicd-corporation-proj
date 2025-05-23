@@ -22,6 +22,6 @@ variables:
   # Terraform TFVars File Name location
   - name: TFVarsFileNameLocation
     value: infra/terraform/infra-setup/dev/dev.tfvars
-  # AWS ADO Service connection
-  - name: AWSServiceConnection
-    value: aws_rod_dev_connection
+  # AWS Vault profile name
+  - name: AWSVaultProfileName
+    value: 'ado-tf-profile'

@@ -5,12 +5,6 @@ parameters:
     type: string
 
 steps:
-  # Inject AWS credentials for subsequent steps
-  - task: aws-credentials@1
-    displayName: 'Configure AWS Credentials'
-    inputs:
-      awsCredentials: 'aws_rod_dev_connection'
-
   # Terraform Init
   - task: Bash@3
     displayName: 'Terraform Init'
@@ -18,7 +12,7 @@ steps:
       targetType: 'inline'
       script: |
        cd ${{ parameters.TerraformWorkingDirectory }}
-       terraform init $(TerraformBackendConfig)
+       aws-vault exec $(AWSVaultProfileName) -- terraform init $(TerraformBackendConfig)
   
   # Terraform validate
   - task: Bash@3
