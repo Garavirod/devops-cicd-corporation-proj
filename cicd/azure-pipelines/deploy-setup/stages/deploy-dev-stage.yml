@@ -23,5 +23,5 @@ stages:
               TerraformWorkingDirectory: $(TerraformSetupWorkingDirectory) # Terraform files location
               TFVarsFileNameLocation: $(TFVarsFileNameLocation) # TFVars file location for dev
           # Clean workspace
-          - template: ../steps/clean-workspace-steps.yml
+          - template: ../steps/utils/clean-workspace-steps.yml
             
