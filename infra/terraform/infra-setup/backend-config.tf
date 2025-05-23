@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    
+    // Backend configuration for S3 and DynamoDB is defined and managed by into CI/CD pipeline
   }
 }
 
