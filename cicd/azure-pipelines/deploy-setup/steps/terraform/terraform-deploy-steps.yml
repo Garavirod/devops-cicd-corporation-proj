@@ -9,8 +9,8 @@ steps:
   - task: AWSCLI@1
     displayName: 'Configure AWS Credentials'
     inputs:
-      awsCredentials: '$(AWSServiceConnection)'
-      regionName: '$(awsRegion)'
+      awsCredentials: $(AWSServiceConnection)
+      regionName: $(awsRegion)
       command: 'configure'
 
   # Terraform Init
