@@ -5,7 +5,7 @@ stages:
       name: $(DevAgentPool)
     variables:
       # link variables per environment
-      - template: ../vars/dev/dev-vars.yml
+      - template: ../vars/dev/dev-usa-vars.yml
       # link terraform backend configuration for dev
       - template: ../vars/terraform/terraform-backend-configuration.yml
         parameters:
