@@ -9,7 +9,7 @@ steps:
   - task: AWSCLI@1
     displayName: 'Configure AWS Credentials'
     inputs:
-      awsCredentials: $(AWSServiceConnection)
+      awsCredentials: 'aws_rod_dev_connection'
       regionName: $(awsRegion)
       command: 'configure'
 
