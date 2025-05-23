@@ -17,9 +17,7 @@ resource "aws_security_group" "sg_ec2" {
   vpc_id      = module.networking.vpc_id
 
   tags = {
-    Name        = "${var.project_name}-ec2-sg"
-    Environment = var.environment
-    ManagedBy   = "Terraform/setup"
+    Name      = "${var.project_name}-ec2-k8s-sg"
   }
 }
 

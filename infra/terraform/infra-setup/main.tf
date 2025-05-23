@@ -30,9 +30,7 @@ resource "aws_key_pair" "instance_key_pair" {
     key_name   = "k8s-instance-key-pair"
     public_key = file("../../assets/ec2-keys/k8s-ec2-key-pair.pub") # Path to your public key
     tags = {
-        Name        = "${var.project_name}-key-pair"
-        Environment = var.environment
-        ManagedBy   = "Terraform/setup EC2 K8s Key Pair instance"
+      Name     = "${var.project_name}-k8s-key-pair"
     }
 }
 

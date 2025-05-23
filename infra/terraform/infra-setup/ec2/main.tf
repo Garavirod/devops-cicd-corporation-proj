@@ -53,7 +53,5 @@ resource "aws_instance" "ec2_instance_master" {
     }
     tags = {
         Name        = "${var.project_name}-${var.ec2_instance_name}-instance"
-        Environment = var.environment
-        ManagedBy   = "Terraform/setup - K8S cluster"
       }
 }

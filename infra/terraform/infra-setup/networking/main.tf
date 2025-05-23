@@ -25,7 +25,6 @@ resource "aws_vpc" "corp_vpc" {
   cidr_block = var.aws_vpc_cidr_block
   tags = {
     Name = "${var.project_name}-vpc"
-    ManagedBy = "Terraform/setup - ${var.project_name}-vpc"
   }
 }
 
@@ -36,8 +35,7 @@ resource "aws_subnet" "public_subnets" {
   cidr_block = element(var.public_subnets_cidrs, count.index)
   availability_zone = element(data.aws_availability_zones.available.names, count.index)
   tags = {
-    Name = "${var.project_name}-public-subnet-${count.index}"
-    ManagedBy = "Terraform/setup - ${var.project_name}"
+    Name = "${var.project_name}-public-subnet-${count.index}"    
   }
 }
 
@@ -48,7 +46,6 @@ resource "aws_subnet" "private_subnets" {
   availability_zone = element(data.aws_availability_zones.available.names, count.index)
   tags = {
     Name = "${var.project_name}-private-subnet-${count.index}"
-    ManagedBy = "Terraform/setup - ${var.project_name}"
   }
 }
 
@@ -57,7 +54,6 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.corp_vpc.id
   tags = {
     Name = "${var.project_name}-igw"
-    ManagedBy = "Terraform/setup - ${var.project_name}"
   }
 }
 
@@ -70,7 +66,6 @@ resource "aws_route_table" "public_rt" {
   }
   tags = {
     Name = "${var.project_name}-public-rt"
-    ManagedBy = "Terraform/setup - ${var.project_name}"
   }
 }
 
@@ -79,7 +74,6 @@ resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.corp_vpc.id
   tags = {
     Name = "${var.project_name}-private-rt"
-    ManagedBy = "Terraform/setup - ${var.project_name}"
   }
 }
 
