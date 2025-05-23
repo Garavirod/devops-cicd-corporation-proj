@@ -5,9 +5,9 @@ parameters:
     type: string
 
 variables:
-  terraformBackendConfig: |
+  TerraformBackendConfig: |
     -backend-config="region=$(awsRegion)" \
-    -backend-config="bucket=${{ parameters.TFBucketState }}" \
+    -backend-config="bucket=${{ parameters.TFS3BucketName }}" \
     -backend-config="key=$(projectName)/setup/tf-state-setup" \
-    -backend-config="dynamodb_table=${{ parameters.TFDynamoDBTable }}" \
+    -backend-config="dynamodb_table=${{ parameters.TFDynamoDBTableName }}" \
     -backend-config="encrypt=true"

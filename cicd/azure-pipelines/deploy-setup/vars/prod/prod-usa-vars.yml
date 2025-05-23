@@ -1,3 +1,20 @@
 variables:
-  awsRegion: $(AwsProdRegion)
-  environment: prod-usa
+  ###########
+  # General #
+  ###########
+  - name: environment
+    value: prod-usa
+    type: string
+  #######
+  # AWS #
+  #######
+  # AWS Region for Dev
+  - name: awsRegion
+    type: string
+    value: $(AwsProdRegion)
+  #############
+  # Terraform #
+  #############
+  - name: TFVarsFileNameLocation
+    type: string
+    value: $(TfVarsSetupProd)

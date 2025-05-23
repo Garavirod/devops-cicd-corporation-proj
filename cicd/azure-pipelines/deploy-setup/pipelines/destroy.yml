@@ -30,6 +30,9 @@ stages:
           steps: 
             # Terraform destroy
             - template: ../steps/terraform/terraform-destroy-steps.yml
+              parameters:
+                TerraformWorkingDirectory: $(TerraformSetupWorkingDirectory) # Terraform files location
+                TFVarsFileNameLocation: $(TFVarsFileNameLocation) # TFVars file location
             # clean workspace
             - template: ../steps/clean-workspace.yml
   - ${{ else }}:

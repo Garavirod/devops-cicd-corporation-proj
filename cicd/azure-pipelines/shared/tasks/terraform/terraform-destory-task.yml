@@ -11,7 +11,7 @@ steps:
       script: |
         echo "Terraform Init"
         cd ${{ parameters.terraformWorkingDirectory }}
-        terraform init $(terraformBackendConfig)
+        terraform init $(TerraformBackendConfig)
 
   # Terraform validate
   - task : Bash@3

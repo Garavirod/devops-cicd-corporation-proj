@@ -1,5 +1,7 @@
 parameters:
-  - name: terraformWorkingDirectory
+  - name: TerraformWorkingDirectory
+    type: string
+  - name: TFVarsFileNameLocation
     type: string
 
 steps:
@@ -9,8 +11,8 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-       cd ${{ parameters.terraformWorkingDirectory }}
-       terraform init $(terraformBackendConfig)
+       cd ${{ parameters.TerraformWorkingDirectory }}
+       terraform init $(TerraformBackendConfig)
   
   # Terraform validate
   - task: Bash@3
@@ -18,8 +20,8 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-       cd $(terraformWorkingDirectory)
-       terraform validate $(terraformBackendConfig)
+       cd $(TerraformWorkingDirectory)
+       terraform validate $(TerraformBackendConfig)
 
   # Terraform plan
   - task: Bash@3
@@ -27,8 +29,11 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-       cd ${{ parameters.terraformWorkingDirectory }}
-       terraform plan -out=tfplan -input=false $(terraformInputVariables)
+       cd ${{ parameters.TerraformWorkingDirectory }}
+       terraform plan \
+        -out=tfplan \
+        -input=false $(terraformInputVariables) \
+        -var-file= ${{ parameters.TFVarsFileNameLocation }} \
   
   # Terraform apply
   - task: Bash@3
@@ -36,5 +41,5 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-       cd ${{ parameters.terraformWorkingDirectory }}
+       cd ${{ parameters.TerraformWorkingDirectory }}
        terraform apply -input=false -auto-approve tfplan

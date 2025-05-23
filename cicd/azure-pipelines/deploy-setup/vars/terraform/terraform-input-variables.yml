@@ -1,4 +1,6 @@
 variables:
-  terraformInputVariables: |
-    -var="aws_region=$(awsRegion)" \
-    -var="project_name=$(projectName)" 
+  - name: terraformInputVariables
+    type: string
+    default: |
+      -var="aws_region=$(awsRegion)" \
+      -var="project_name=$(projectName)"
