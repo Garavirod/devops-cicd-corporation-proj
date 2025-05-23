@@ -32,7 +32,7 @@ steps:
        cd ${{ parameters.TerraformWorkingDirectory }}
        terraform plan \
         -out=tfplan \
-        -input=false $(terraformInputVariables) \
+        -input=false $(TerraformInputVariables) \
         -var-file= ${{ parameters.TFVarsFileNameLocation }}
   
 
@@ -46,5 +46,5 @@ steps:
        terraform destroy \
           -input=false \ 
           -auto-approve \
-          $(terraformInputVariables)
+          $(TerraformInputVariables)
   

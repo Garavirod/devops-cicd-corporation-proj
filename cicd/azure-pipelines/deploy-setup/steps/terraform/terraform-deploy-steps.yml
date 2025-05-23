@@ -32,7 +32,7 @@ steps:
        cd ${{ parameters.TerraformWorkingDirectory }}
        terraform plan \
         -out=tfplan \
-        -input=false $(terraformInputVariables) \
+        -input=false $(TerraformInputVariables) \
         -var-file= ${{ parameters.TFVarsFileNameLocation }} \
   
   # Terraform apply

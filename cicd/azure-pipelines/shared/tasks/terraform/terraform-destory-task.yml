@@ -31,4 +31,4 @@ steps:
       script: |
         echo "Terraform Destroy"
         cd ${{ parameters.terraformWorkingDirectory }}
-        terraform destroy -auto-approve -input=false $(terraformInputVariables)
+        terraform destroy -auto-approve -input=false $(TerraformInputVariables)

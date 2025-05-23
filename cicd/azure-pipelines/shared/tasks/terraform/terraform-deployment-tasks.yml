@@ -31,7 +31,7 @@ steps:
       script: |
         echo "Terraform Plan"
         cd ${{ parameters.terraformWorkingDirectory }}
-        terraform plan -out=tfplan -input=false $(terraformInputVariables)  
+        terraform plan -out=tfplan -input=false $(TerraformInputVariables)  
   
   # Terraform Apply
   - task : Bash@3

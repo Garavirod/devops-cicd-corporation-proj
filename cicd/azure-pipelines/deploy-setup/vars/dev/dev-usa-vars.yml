@@ -5,7 +5,6 @@ variables:
 
   # Environment name
   - name: environment
-    type: string
     value: dev-usa
 
   #######
@@ -14,7 +13,6 @@ variables:
 
   # AWS Region for Dev
   - name: awsRegion
-    type: string
     value: $(AwsDevRegion)
 
   #############
@@ -23,5 +21,4 @@ variables:
 
   # Terraform TFVars File Name location
   - name: TFVarsFileNameLocation
-    type: string
     value: $(Build.SourceDirectory)/infra/terraform/infra-setup/dev/dev.tfvars
