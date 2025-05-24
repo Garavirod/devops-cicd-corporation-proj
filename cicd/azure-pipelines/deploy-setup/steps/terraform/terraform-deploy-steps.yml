@@ -21,7 +21,7 @@ steps:
       targetType: 'inline'
       script: |
        cd ${{ parameters.TerraformWorkingDirectory }}
-       terraform validate $(TerraformBackendConfig)
+       terraform validate
 
   # Terraform plan
   - task: Bash@3
