@@ -22,6 +22,7 @@ module "security_groups" {
     source = "./security_groups"
     project_name = var.project_name
     environment = var.environment
+    vpc_id = module.networking.vpc_id
 }
 
 // EC2 Key Pair
@@ -57,7 +58,7 @@ module "ec2_slave_1" {
   ec2_instance_name = "slave-1"
   ec2_instance_ami = var.ec2_k8s_instance_ami
   ec2_instance_type = var.ec2_k8s_instance_type
-  security_group_ids = [aws_security_group.sg_ec2.id]
+  security_group_ids = [aws_security_groups.sg_ec2.id]
   enable_public_ip = true
 }
 module "ec2_slave_2" {

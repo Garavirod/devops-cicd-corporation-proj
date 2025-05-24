@@ -5,7 +5,7 @@ resource "aws_security_group_rule" "inbound_rule_1" {
     from_port   = 80
     to_port     = 80
     protocol = "tcp"
-    security_group_id = aws_security_group.sg_ec2.id
+    security_group_id = aws_security_group.sg_ec2_k8s.id
 }
 
 resource "aws_security_group_rule" "inbound_rule_2" {
@@ -14,7 +14,7 @@ resource "aws_security_group_rule" "inbound_rule_2" {
     from_port   = 443
     to_port     = 443
     protocol = "tcp"
-    security_group_id = aws_security_group.sg_ec2.id
+    security_group_id = aws_security_group.sg_ec2_k8s.id
 }
 
 resource "aws_security_group_rule" "inbound_rule_3" {
@@ -23,7 +23,7 @@ resource "aws_security_group_rule" "inbound_rule_3" {
     from_port   = 22
     to_port     = 22
     protocol = "tcp"
-    security_group_id = aws_security_group.sg_ec2.id
+    security_group_id = aws_security_group.sg_ec2_k8s.id
 }
 
 resource "aws_security_group_rule" "inbound_rule_4" {
@@ -32,7 +32,7 @@ resource "aws_security_group_rule" "inbound_rule_4" {
     from_port   = 25
     to_port     = 25
     protocol = "tcp"
-    security_group_id = aws_security_group.sg_ec2.id
+    security_group_id = aws_security_group.sg_ec2_k8s.id
 }
 
 resource "aws_security_group_rule" "inbound_rule_5" {
@@ -41,7 +41,7 @@ resource "aws_security_group_rule" "inbound_rule_5" {
     from_port   = 465
     to_port     = 465
     protocol = "tcp"
-    security_group_id = aws_security_group.sg_ec2.id
+    security_group_id = aws_security_group.sg_ec2_k8s.id
 }
 
 resource "aws_security_group_rule" "inbound_rule_6" {
@@ -50,7 +50,7 @@ resource "aws_security_group_rule" "inbound_rule_6" {
     from_port = 30000
     to_port = 32767
     protocol = "tcp"
-    security_group_id = aws_security_group.sg_ec2.id
+    security_group_id = aws_security_group.sg_ec2_k8s.id
 }
 
 resource "aws_security_group_rule" "inbound_rule_7" {
@@ -59,5 +59,5 @@ resource "aws_security_group_rule" "inbound_rule_7" {
     from_port = 3000
     to_port = 10000
     protocol = "tcp"
-    security_group_id = aws_security_group.sg_ec2.id
+    security_group_id = aws_security_group.sg_ec2_k8s.id
 }
