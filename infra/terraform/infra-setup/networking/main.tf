@@ -33,7 +33,7 @@ resource "aws_subnet" "public_subnets" {
   count = length(var.public_subnets_cidrs)
   vpc_id = aws_vpc.corp_vpc.id
   cidr_block = element(var.public_subnets_cidrs, count.index)
-  availability_zone = element(data.aws_availability_zones.available.names, count.index)
+  availability_zone = element(var.availability_zones, count.index)
   tags = {
     Name = "${var.project_name}-public-subnet-${count.index}"    
   }
@@ -43,7 +43,7 @@ resource "aws_subnet" "private_subnets" {
   count = length(var.private_subnets_cidrs)
   vpc_id = aws_vpc.corp_vpc.id
   cidr_block = element(var.private_subnets_cidrs, count.index)
-  availability_zone = element(data.aws_availability_zones.available.names, count.index)
+  availability_zone = element(var.availability_zones, count.index)
   tags = {
     Name = "${var.project_name}-private-subnet-${count.index}"
   }
@@ -60,7 +60,7 @@ resource "aws_internet_gateway" "igw" {
 // Public route Table
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.corp_vpc.id
-  route = {
+  route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
   }
