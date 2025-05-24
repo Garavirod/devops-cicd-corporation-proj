@@ -12,7 +12,7 @@ steps:
       targetType: 'inline'
       script: |
        cd ${{ parameters.TerraformWorkingDirectory }}
-       aws-vault exec $(AWSVaultProfileName) -- terraform init $(TerraformBackendConfig)
+       terraform init $(TerraformBackendConfig)
   
   # Terraform validate
   - task: Bash@3
