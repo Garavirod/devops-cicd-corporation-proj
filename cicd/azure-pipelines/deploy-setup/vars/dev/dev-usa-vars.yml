@@ -1,24 +1,10 @@
 variables:
-  ###########
-  # General #
-  ###########
-
-  # Environment name
+  # General
   - name: environment
     value: dev-usa
-
-  #######
-  # AWS #
-  #######
-
-  # AWS Region for Dev
+  # AWS
   - name: awsRegion
     value: $(AwsDevRegion)
-
-  #############
-  # Terraform #
-  #############
-
-  # Terraform TFVars File Name location
+  # Terraform
   - name: TFVarsFileNameLocation
     value: infra/terraform/infra-setup/dev/dev.tfvars
