@@ -60,4 +60,4 @@ stages:
           name: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].AdoPoolAgent }}
         steps:
           # Link the cleanup workspace template
-          - template: ../steps/cleanup-workspace.yml
+          - template: ../steps/utils/cleanup-workspace.yml
