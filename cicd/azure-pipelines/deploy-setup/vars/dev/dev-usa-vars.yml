@@ -22,6 +22,3 @@ variables:
   # Terraform TFVars File Name location
   - name: TFVarsFileNameLocation
     value: infra/terraform/infra-setup/dev/dev.tfvars
-  # AWS Vault profile name
-  - name: AWSVaultProfileName
-    value: 'ado-tf-profile'

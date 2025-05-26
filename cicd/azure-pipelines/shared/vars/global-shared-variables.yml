@@ -14,7 +14,17 @@ variables:
     value: Default    
   # Agent Pool for Prod
   - name: ProdAgentPool
-    value: ec2_prod_agent_pool_ado    
+    value: ec2_prod_agent_pool_ado
+
+  ####################
+  # ADO Environments #
+  ####################    
+  # ADO Environment for Dev
+  - name: DevAdoEnvironmentName
+    value: Dev_Usa
+  # ADO Environment for Prod
+  - name: ProdAdoEnvironmentName
+    value: Prod_Usa
   
   #######
   # AWS #

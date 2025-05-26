@@ -1,0 +1,67 @@
+parameters:
+  - name: EnvironmentNameToDeploy
+    type: string
+    default: 'dev'
+    values:
+      - dev
+      - prod
+  - name: environments
+    type: object
+    default:
+      - name: dev
+        AdoEnvironmentName: $(DevAdoEnvironmentName) # ADO Environment for Dev value comes from global variables
+        AdoPoolAgent: $(DevAgentPool) # Agent pool for Dev value comes from global variables
+        TemplateVariablesFile: '../vars/dev/dev-usa-vars.yml' # Template variables file for Dev
+        S3BucketStateName: $(TFBucketStateDev) # S3 bucket name for managing state in Dev
+        DynamoLuckTableName: $(TFDynamoDBTableDev) # DynamoDB table name for managing lock in Dev        
+      - name: prod
+        AdoEnvironmentName: $(ProdAdoEnvironmentName) # ADO Environment for Prod value comes from global variables
+        AdoPoolAgent: $(ProdAgentPool) # Agent pool for Prod value comes from global variables
+        TemplateVariablesFile: '../vars/prod/prod-usa-vars.yml' # Template variables file for Prod
+        S3BucketStateName: $(TFBucketStateProd) # S3 bucket name for managing state in Prod
+        DynamoLuckTableName: $(TFDynamoDBTableProd) # DynamoDB table name for managing lock in Prod
+
+
+
+stages:
+  - stage: DestroyInfra
+    displayName: 'Destroy Infrastructure in ${{ parameters.EnvironmentNameToDeploy }}'
+    pool:
+      name: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].AdoPoolAgent }}
+    variables:
+    # Terraform backend configuration
+      - template: ../vars/terraform/terraform-backend-configuration.yml
+        parameters:
+          TFS3BucketName: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].S3BucketStateName }} # S3 bucket name for managing state
+          TFDynamoDBTableName: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].DynamoLuckTableName }} # DynamoDB table name for managing lock
+      # Link global variables
+      - template: ../../shared/vars/global-shared-variables.yml
+    jobs:
+      # Destroy infrastructure job
+      - deployment: 'Destroy_Infra_${{ parameters.EnvironmentNameToDeploy }}'
+        displayName: 'Destroy Infrastructure in ${{ parameters.EnvironmentNameToDeploy }}'
+        environment: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].AdoEnvironmentName }} # ADO Environment for the deployment
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                # Explicit checkout to ensure the pipeline has access to the repository
+                - checkout: self
+                # Link template variables based on the environment
+                - template: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].TemplateVariablesFile }}
+                # Terraform destroy steps
+                - template: ../steps/terraform/terraform-destroy-steps.yml
+                  parameters:
+                    TerraformWorkingDirectory: $(TerraformSetupWorkingDirectory) # Terraform files location
+                    TFVarsFileNameLocation: $(TFVarsFileNameLocation) # TFVars file location
+      # Cleanup workspace job
+      - job: CleanupWorkspace
+        displayName: 'Cleanup Workspace in ${{ parameters.EnvironmentNameToDeploy }}'
+        condition: always() # Always run this job to clean up the workspace
+        pool:
+          name: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].AdoPoolAgent }}
+        steps:
+          # Link the cleanup workspace template
+          - template: ../steps/cleanup-workspace.yml
+
+        
