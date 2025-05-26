@@ -55,6 +55,7 @@ stages:
       # Cleanup workspace job
       - job: CleanupWorkspace
         displayName: 'Cleanup Workspace in ${{ parameters.EnvironmentNameToDeploy }}'
+        dependsOn: 'Deploy_Infra_${{ parameters.EnvironmentNameToDeploy }}' # Ensure this job runs after the deployment job
         condition: always() # Always run this job to clean up the workspace
         pool:
           name: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].AdoPoolAgent }}
