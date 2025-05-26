@@ -14,13 +14,13 @@ parameters:
       - name: dev
         AdoEnvironmentName: $(DevAdoEnvironmentName) # ADO Environment for Dev value comes from global variables
         AdoPoolAgent: $(DevAgentPool) # Agent pool for Dev value comes from global variables
-        TemplateVariablesFile: '../vars/dev/dev-usa-vars.yml' # Template variables file for Dev
+        TemplateVariablesFile: '../vars/envs/dev/dev-usa-vars.yml' # Template variables file for Dev
         S3BucketStateName: $(TFBucketStateDev) # S3 bucket name for managing state in Dev
         DynamoLuckTableName: $(TFDynamoDBTableDev) # DynamoDB table name for managing lock in Dev        
       - name: prod
         AdoEnvironmentName: $(ProdAdoEnvironmentName) # ADO Environment for Prod value comes from global variables
         AdoPoolAgent: $(ProdAgentPool) # Agent pool for Prod value comes from global variables
-        TemplateVariablesFile: '../vars/prod/prod-usa-vars.yml' # Template variables file for Prod
+        TemplateVariablesFile: '../vars/envs/prod/prod-usa-vars.yml' # Template variables file for Prod
         S3BucketStateName: $(TFBucketStateProd) # S3 bucket name for managing state in Prod
         DynamoLuckTableName: $(TFDynamoDBTableProd) # DynamoDB table name for managing lock in Prod
 
