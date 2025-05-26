@@ -1,10 +1,7 @@
 variables:
-# General
-- name: environment
-  value: dev-usa
-# AWS
-- name: awsRegion
-  value: $(AwsDevRegion)
-# Terraform
-- name: TFVarsFileNameLocation
-  value: infra/terraform/infra-setup/dev/dev.tfvars
+  - name: environment
+    value: dev-usa
+  - name: awsRegion
+    value: $(AwsDevRegion)
+  - name: TFVarsFileNameLocation
+    value: infra/terraform/infra-setup/dev/dev.tfvars
