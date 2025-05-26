@@ -23,5 +23,5 @@ variables:
 stages:
   - template: ../stages/destroy-infra.yml
     parameters:
-      EnvironmentNameToDeploy: ${{ parameters.EnvironmentNameToDeploy }} # Environment to deploy
+      EnvironmentNameToDeploy: ${{ parameters.EnvironmentNameToDeploy }}
 

@@ -22,8 +22,7 @@ variables:
 
 stages:
  # Clean workspace
-  - ${{ if eq(parameters.EnvironmentNameToDeploy, 'dev') }}:
-    - template: ../stages/deploy-dev-stage.yml
-  - ${{ else }}:
-    - template: ../stages/deploy-prod-stage.yml   
+  - template: ../stages/deploy-infra.yml
+    parameters:
+      EnvironmentNameToDeploy: ${{ parameters.EnvironmentNameToDeploy }}
 
