@@ -29,13 +29,13 @@ stages:
     pool:
       name: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].AdoPoolAgent }}
     variables:
-    # Terraform backend configuration
+      # Link template variables according to the environment
+      - template: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].TemplateVariablesFile }}
+      # Terraform backend configuration
       - template: ../vars/terraform/terraform-backend-configuration.yml
         parameters:
           TFS3BucketName: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].S3BucketStateName }} # S3 bucket name for managing state
           TFDynamoDBTableName: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].DynamoLuckTableName }} # DynamoDB table name for managing lock
-      # Link global variables
-      - template: ../../shared/vars/global-shared-variables.yml
     jobs:
       # Deploy infrastructure job
       - deployment: 'Deploy_Infra_${{ parameters.EnvironmentNameToDeploy }}'
@@ -46,9 +46,7 @@ stages:
             deploy:
               steps:
                 # Explicit checkout to ensure the pipeline has access to the repository
-                - checkout: self
-                # Link template variables based on the environment
-                - template: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].TemplateVariablesFile }}
+                - checkout: self                
                 # Terraform deploy steps
                 - template: ../steps/terraform/terraform-deploy-steps.yml
                   parameters:
