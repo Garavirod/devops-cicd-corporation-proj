@@ -21,7 +21,6 @@ variables:
   - template: ../../shared/vars/global-shared-variables.yml
 
 stages:
- # Clean workspace
   - template: ../stages/deploy-infra.yml
     parameters:
       EnvironmentNameToDeploy: ${{ parameters.EnvironmentNameToDeploy }}

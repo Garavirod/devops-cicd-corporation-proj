@@ -1,3 +1,5 @@
+# DEPLOY INFRASTRUCTURE STAGE
+# This stage deploys the infrastructure using Terraform based on the specified environment.
 parameters:
   - name: EnvironmentNameToDeploy
     type: string
