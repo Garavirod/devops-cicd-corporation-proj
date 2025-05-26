@@ -22,7 +22,7 @@ module "security_groups" {
     source = "./security_groups"
     project_name = var.project_name
     environment = var.environment
-    vpc_id = module.networking.vpc_id
+    vpc_id = module.networking.corporate_vpc_id
 }
 
 // EC2 Key Pair
@@ -42,7 +42,7 @@ module "ec2_master" {
   project_name = var.project_name
   environment = var.environment
   key_name = aws_key_pair.instance_key_pair.key_name
-  subnet_id = module.networking.public_subnets_ids[0]
+  subnet_id = module.networking.corporate_public_subnets_ids[0]
   ec2_instance_name = "master"
   ec2_instance_ami = var.ec2_k8s_instance_ami
   ec2_instance_type = var.ec2_k8s_instance_type
@@ -54,7 +54,7 @@ module "ec2_slave_1" {
   project_name = var.project_name
   environment = var.environment
   key_name = aws_key_pair.instance_key_pair.key_name
-  subnet_id = module.networking.public_subnets_ids[0]
+  subnet_id = module.networking.corporate_public_subnets_ids[0]
   ec2_instance_name = "slave-1"
   ec2_instance_ami = var.ec2_k8s_instance_ami
   ec2_instance_type = var.ec2_k8s_instance_type
@@ -66,7 +66,7 @@ module "ec2_slave_2" {
   project_name = var.project_name
   environment = var.environment
   key_name = aws_key_pair.instance_key_pair.key_name
-  subnet_id = module.networking.public_subnets_ids[0]
+  subnet_id = module.networking.corporate_public_subnets_ids[0]
   ec2_instance_name = "slave-2"
   ec2_instance_ami = var.ec2_k8s_instance_ami
   ec2_instance_type = var.ec2_k8s_instance_type

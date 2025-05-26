@@ -21,7 +21,7 @@ variable "availability_zones" {
 }
 
 // VPC
-resource "aws_vpc" "corp_vpc" {
+resource "aws_vpc" "vpc_corporate" {
   cidr_block = var.aws_vpc_cidr_block
   tags = {
     Name = "${var.project_name}-vpc"
@@ -31,7 +31,7 @@ resource "aws_vpc" "corp_vpc" {
 // Subnets
 resource "aws_subnet" "public_subnets" {
   count = length(var.public_subnets_cidrs)
-  vpc_id = aws_vpc.corp_vpc.id
+  vpc_id = aws_vpc.vpc_corporate.id
   cidr_block = element(var.public_subnets_cidrs, count.index)
   availability_zone = element(var.availability_zones, count.index)
   tags = {
@@ -41,7 +41,7 @@ resource "aws_subnet" "public_subnets" {
 
 resource "aws_subnet" "private_subnets" {
   count = length(var.private_subnets_cidrs)
-  vpc_id = aws_vpc.corp_vpc.id
+  vpc_id = aws_vpc.vpc_corporate.id
   cidr_block = element(var.private_subnets_cidrs, count.index)
   availability_zone = element(var.availability_zones, count.index)
   tags = {
@@ -51,7 +51,7 @@ resource "aws_subnet" "private_subnets" {
 
 // Internet Gateway
 resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.corp_vpc.id
+  vpc_id = aws_vpc.vpc_corporate.id
   tags = {
     Name = "${var.project_name}-igw"
   }
@@ -59,7 +59,7 @@ resource "aws_internet_gateway" "igw" {
 
 // Public route Table
 resource "aws_route_table" "public_rt" {
-  vpc_id = aws_vpc.corp_vpc.id
+  vpc_id = aws_vpc.vpc_corporate.id
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
@@ -71,7 +71,7 @@ resource "aws_route_table" "public_rt" {
 
 // Private route Table
 resource "aws_route_table" "private_rt" {
-  vpc_id = aws_vpc.corp_vpc.id
+  vpc_id = aws_vpc.vpc_corporate.id
   tags = {
     Name = "${var.project_name}-private-rt"
   }
