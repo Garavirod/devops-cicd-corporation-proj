@@ -31,6 +31,8 @@ stages:
     variables:
       # Link template variables according to the environment
       - template: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].TemplateVariablesFile }}
+      # Terraform input variables
+      - template: ../vars/terraform/terraform-input-variables.yml
       # Terraform backend configuration
       - template: ../vars/terraform/terraform-backend-configuration.yml
         parameters:
