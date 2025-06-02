@@ -18,7 +18,7 @@ module "networking" {
 
 // EC2 Security Groups
 // This module creates security groups for the EC2 instances
-module "security_groups" {
+module "ecs_k8s_security_groups" {
     source = "./security_groups"
     project_name = var.project_name
     environment = var.environment
@@ -46,7 +46,7 @@ module "ec2_master" {
   ec2_instance_name = "master"
   ec2_instance_ami = var.ec2_k8s_instance_ami
   ec2_instance_type = var.ec2_k8s_instance_type
-  security_group_ids = [module.security_groups.sg_ec2_k8s.id]
+  security_group_ids = [module.ecs_k8s_security_groups.sg_ec2_k8s_id]
   enable_public_ip = true
 }
 module "ec2_slave_1" {
@@ -58,7 +58,7 @@ module "ec2_slave_1" {
   ec2_instance_name = "slave-1"
   ec2_instance_ami = var.ec2_k8s_instance_ami
   ec2_instance_type = var.ec2_k8s_instance_type
-  security_group_ids = [module.security_groups.sg_ec2_k8s.id]
+  security_group_ids = [module.ecs_k8s_security_groups.sg_ec2_k8s_id]
   enable_public_ip = true
 }
 module "ec2_slave_2" {
@@ -70,6 +70,6 @@ module "ec2_slave_2" {
   ec2_instance_name = "slave-2"
   ec2_instance_ami = var.ec2_k8s_instance_ami
   ec2_instance_type = var.ec2_k8s_instance_type
-  security_group_ids = [module.security_groups.sg_ec2_k8s.id]
+  security_group_ids = [module.ecs_k8s_security_groups.sg_ec2_k8s_id]
   enable_public_ip = true
 }
