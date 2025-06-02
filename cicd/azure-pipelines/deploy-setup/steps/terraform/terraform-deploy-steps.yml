@@ -33,7 +33,7 @@ steps:
        terraform plan \
         -out=tfplan \
         -input=false $(TerraformInputVariables) \
-        -var-file= ${{ parameters.TFVarsFileNameLocation }} \
+        -var-file= ${{ parameters.TFVarsFileNameLocation }}
   
   # Terraform apply
   - task: Bash@3

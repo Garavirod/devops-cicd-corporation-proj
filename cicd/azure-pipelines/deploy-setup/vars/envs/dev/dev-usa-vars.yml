@@ -7,4 +7,4 @@ variables:
     value: $(AwsDevRegion)
   # Terraform
   - name: TFVarsFileNameLocation
-    value: infra/terraform/infra-setup/dev/dev.tfvars
+    value: infra/terraform/infra-setup/dev.tfvars
