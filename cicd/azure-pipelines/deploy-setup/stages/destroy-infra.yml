@@ -30,13 +30,15 @@ stages:
     pool:
       name: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].AdoPoolAgent }}
     variables:
-    # Terraform backend configuration
+      # Link template variables according to the environment
+      - template: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].TemplateVariablesFile }}
+      # Terraform input variables
+      - template: ../vars/terraform/terraform-input-variables.yml
+      # Terraform backend configuration
       - template: ../vars/terraform/terraform-backend-configuration.yml
         parameters:
           TFS3BucketName: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].S3BucketStateName }} # S3 bucket name for managing state
           TFDynamoDBTableName: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].DynamoLuckTableName }} # DynamoDB table name for managing lock
-      # Link global variables
-      - template: ../../shared/vars/global-shared-variables.yml
     jobs:
       # Destroy infrastructure job
       - deployment: 'Destroy_Infra_${{ parameters.EnvironmentNameToDeploy }}'
