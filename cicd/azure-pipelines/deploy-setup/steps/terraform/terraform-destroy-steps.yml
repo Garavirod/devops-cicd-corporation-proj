@@ -32,8 +32,8 @@ steps:
        cd ${{ parameters.TerraformWorkingDirectory }}
        terraform plan \
         -out=tfplan \
-        -input=false $(TerraformInputVariables) \
-        -var-file= ${{ parameters.TFVarsFileNameLocation }}
+        -var-file="${{ parameters.TFVarsFileNameLocation }}" \
+        -input=false $(TerraformInputVariables)
   
 
   # Terraform destroy
