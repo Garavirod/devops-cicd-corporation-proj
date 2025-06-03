@@ -23,19 +23,6 @@ steps:
        cd ${{parameters.TerraformWorkingDirectory }}
        terraform validate
 
-  # Terraform plan
-  - task: Bash@3
-    displayName: 'Terraform Plan'
-    inputs:
-      targetType: 'inline'
-      script: |
-       cd ${{ parameters.TerraformWorkingDirectory }}
-       terraform plan \
-        -out=tfplan \
-        -var-file="${{ parameters.TFVarsFileNameLocation }}" \
-        -input=false $(TerraformInputVariables)
-  
-
   # Terraform destroy
   - task: Bash@3
     displayName: 'Terraform Destroy'
@@ -45,6 +32,6 @@ steps:
        cd ${{ parameters.TerraformWorkingDirectory }}
        terraform destroy \ 
           -auto-approve \
-          -input=false $(TerraformInputVariables) \ 
-          -var-file="${{ parameters.TFVarsFileNameLocation }}" \       
+          -input=false \
+          $(TerraformInputVariables)  
           
