@@ -43,7 +43,4 @@ steps:
       targetType: 'inline'
       script: |
        cd ${{ parameters.TerraformWorkingDirectory }}
-       terraform destroy \
-          -input=false \ 
-          -auto-approve tfplan
-  
+       terraform destroy -input=false -auto-approve tfplan
