@@ -1,6 +1,5 @@
 # DESTROY INFRASTRUCTURE STAGE
-# This stage destroys the infrastructure using Terraform based on the specified environment.
-
+# This stage destroy the infrastructure using Terraform based on the specified environment.
 parameters:
   - name: EnvironmentNameToDeploy
     type: string
@@ -23,7 +22,7 @@ parameters:
         TemplateVariablesFile: '../vars/envs/prod/prod-usa-vars.yml' # Template variables file for Prod
         S3BucketStateName: $(TFBucketStateProd) # S3 bucket name for managing state in Prod
         DynamoLuckTableName: $(TFDynamoDBTableProd) # DynamoDB table name for managing lock in Prod
-
+        
 stages:
   - stage: DestroyInfra
     displayName: 'Destroy Infrastructure in ${{ parameters.EnvironmentNameToDeploy }}'
@@ -40,7 +39,7 @@ stages:
           TFS3BucketName: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].S3BucketStateName }} # S3 bucket name for managing state
           TFDynamoDBTableName: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].DynamoLuckTableName }} # DynamoDB table name for managing lock
     jobs:
-      # Destroy infrastructure job
+      # Deploy infrastructure job
       - deployment: 'Destroy_Infra_${{ parameters.EnvironmentNameToDeploy }}'
         displayName: 'Destroy Infrastructure in ${{ parameters.EnvironmentNameToDeploy }}'
         environment: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].AdoEnvironmentName }} # ADO Environment for the deployment
@@ -49,10 +48,8 @@ stages:
             deploy:
               steps:
                 # Explicit checkout to ensure the pipeline has access to the repository
-                - checkout: self
-                # Link template variables based on the environment
-                - template: ${{ parameters.environments[parameters.EnvironmentNameToDeploy].TemplateVariablesFile }}
-                # Terraform destroy steps
+                - checkout: self                
+                # Terraform deploy steps
                 - template: ../steps/terraform/terraform-destroy-steps.yml
                   parameters:
                     TerraformWorkingDirectory: $(TerraformSetupWorkingDirectory) # Terraform files location
@@ -67,5 +64,3 @@ stages:
         steps:
           # Link the cleanup workspace template
           - template: ../steps/utils/cleanup-workspace.yml
-
-        
