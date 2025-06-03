@@ -43,4 +43,8 @@ steps:
       targetType: 'inline'
       script: |
        cd ${{ parameters.TerraformWorkingDirectory }}
-       terraform destroy -input=false -auto-approve tfplan
+       terraform destroy \ 
+          -auto-approve \
+          -input=false $(TerraformInputVariables) \ 
+          -var-file="${{ parameters.TFVarsFileNameLocation }}" \       
+          
