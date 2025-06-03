@@ -29,9 +29,9 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-       cd ${{ parameters.TerraformWorkingDirectory }}
-       terraform destroy \ 
+        cd ${{ parameters.TerraformWorkingDirectory }}
+        terraform destroy \
           -auto-approve \
           -input=false \
-          $(TerraformInputVariables)  
+          $(TerraformInputVariables)
           
