@@ -4,7 +4,7 @@
 
 module "networking" {
     source = "./networking"
-    aws_vpc_cidr_block = "11.0.0.0/16"
+    aws_vpc_cidr_block = var.vpc_cidr
     project_name = var.project_name
     public_subnets_cidrs = var.public_subnets_cidrs
     private_subnets_cidrs = var.private_subnets_cidrs

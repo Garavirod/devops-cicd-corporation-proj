@@ -24,6 +24,12 @@ variable "aws_region" {
 /* Networking */
 
 // VPC
+
+variable "vpc_cidr" {
+  description = "The CIDR block for the VPC"
+  type        = string
+}
+
 // This variable is used to specify the CIDR block for the VPC where applications will be deployed
 variable "availability_zones" {
   description = "The availability zone to use for the VPC"
