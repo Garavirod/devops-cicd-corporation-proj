@@ -45,6 +45,5 @@ steps:
        cd ${{ parameters.TerraformWorkingDirectory }}
        terraform destroy \
           -input=false \ 
-          -auto-approve \
-          $(TerraformInputVariables)
+          -auto-approve tfplan
   
