@@ -32,6 +32,7 @@ steps:
         cd ${{ parameters.TerraformWorkingDirectory }}
         terraform destroy \
           -auto-approve \
+          -var-file="${{ parameters.TFVarsFileNameLocation }}" \
           -input=false \
           $(TerraformInputVariables)
           
