@@ -38,7 +38,7 @@ variable "key_name" {
 
 
 // EC2 Instances
-resource "aws_instance" "ec2_instance_master" {
+resource "aws_instance" "ec2_instance_k8s" {
     ami           = var.ec2_instance_ami
     instance_type = var.ec2_instance_type
     security_groups = var.security_group_ids
@@ -52,6 +52,6 @@ resource "aws_instance" "ec2_instance_master" {
         device_name = "/dev/xvda"
     }
     tags = {
-        Name        = "${var.project_name}-${var.ec2_instance_name}-instance"
+        Name = "${var.project_name}-${var.ec2_instance_name}-instance"
       }
 }
