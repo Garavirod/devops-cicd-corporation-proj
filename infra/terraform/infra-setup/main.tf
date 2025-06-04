@@ -29,7 +29,7 @@ module "ecs_k8s_security_groups" {
 // This key pair is used to access the EC2 instances
 resource "aws_key_pair" "instance_key_pair" {
     key_name   = "k8s-instance-key-pair"
-    public_key = file("../../assets/ec2-keys/k8s-ec2-key-pair.pub") # Path to your public key
+    public_key = file("../../assets/ec2_k8s/key-paris/k8s-ec2-key-pair.pub")
     tags = {
       Name     = "${var.project_name}-k8s-key-pair"
     }
