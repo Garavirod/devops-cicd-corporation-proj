@@ -28,4 +28,4 @@ private_subnets_cidrs = [
 
 // Kubernetes cluster
 ec2_k8s_instance_type = "t2.medium"
-ec2_k8s_instance_ami = "ami-084568db4383264d4"
+ec2_k8s_instance_ami = "ami-050499786ebf55a6a" // Ubuntu 22.04 LTS (HVM), SSD Volume Type, us-east-1
