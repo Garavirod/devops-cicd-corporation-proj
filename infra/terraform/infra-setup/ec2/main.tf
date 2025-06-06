@@ -25,17 +25,22 @@ variable "environment" {
 variable "subnet_id" {
   description = "The subnet ID to launch the EC2 instances in"
 }
-
 variable "enable_public_ip" {
   description = "Whether to associate a public IP address with the EC2 instances"
   type        = bool
 }
-
 variable "key_name" {
   description = "The name of the key pair to use for the EC2 instances"
   type        = string
 }
-
+variable "ebs_volume_size" {
+  description = "value for the volume size in GB"
+  type        = number
+}
+variable "ebs_volume_type" {
+  description = "The type of volume to use for the EC2 instances"
+  type        = string
+}
 
 // EC2 Instances
 resource "aws_instance" "ec2_instance_k8s" {
@@ -46,8 +51,8 @@ resource "aws_instance" "ec2_instance_k8s" {
     subnet_id = var.subnet_id
     associate_public_ip_address = var.enable_public_ip
     ebs_block_device {
-        volume_type = "gp2"
-        volume_size = 20
+        volume_type = var.ebs_volume_type
+        volume_size = var.ebs_volume_size
         delete_on_termination = true
         device_name = "/dev/xvda"
     }
