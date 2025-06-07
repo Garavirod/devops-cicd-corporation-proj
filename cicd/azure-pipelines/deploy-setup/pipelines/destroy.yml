@@ -16,6 +16,12 @@ parameters:
     values:
         - dev    
         - prod
+  - name: InfraToDestroy
+    displayName: 'Infrastructure to destroy'
+    type: string
+    values:
+        - infra_setup
+        - infra_service
 variables:
   # Link global variables
   - template: ../../shared/vars/global-shared-variables.yml
