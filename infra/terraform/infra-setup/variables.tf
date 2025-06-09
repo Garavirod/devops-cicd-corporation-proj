@@ -57,10 +57,39 @@ variable "ec2_k8s_instance_type" {
   description = "The name of the EC2 instance type"
   type        = string
 }
-
 // EC2 instance AMI
 // This variable is used to specify the AMI ID for the EC2 instances
 variable "ec2_k8s_instance_ami" {
   description = "The name of the EC2 instance AMI"
+  type        = string
+}
+// Jenkins EC2 instance type
+variable "ec2_jenkins_instance_type" {
+  description = "The name of the Jenkins EC2 instance type"
+  type        = string
+}
+// Jenkins EC2 instance AMI
+variable "ec2_jenkins_instance_ami" {
+  description = "The name of the Jenkins EC2 instance AMI"
+  type        = string
+}
+// Nexus EC2 instance type
+variable "ec2_nexus_instance_type" {
+  description = "The name of the Nexus EC2 instance type"
+  type        = string
+}   
+// Nexus EC2 instance AMI
+variable "ec2_nexus_instance_ami" {
+  description = "The name of the Nexus EC2 instance AMI"
+  type        = string
+}
+// SonarQube EC2 instance type
+variable "ec2_sonarqube_instance_type" {
+  description = "The name of the SonarQube EC2 instance type"
+  type        = string
+}
+// SonarQube EC2 instance AMI
+variable "ec2_sonarqube_instance_ami" {
+  description = "The name of the SonarQube EC2 instance AMI"
   type        = string
 }

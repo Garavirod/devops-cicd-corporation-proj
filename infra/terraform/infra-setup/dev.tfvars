@@ -29,3 +29,13 @@ private_subnets_cidrs = [
 // Kubernetes cluster
 ec2_k8s_instance_type = "t2.medium"
 ec2_k8s_instance_ami = "ami-084568db4383264d4"
+
+// Jenkins
+ec2_jenkins_instance_type = "t2.medium" 
+ec2_jenkins_instance_ami = "ami-084568db4383264d4"
+// Nexus
+ec2_nexus_instance_type = "t2.medium"
+ec2_nexus_instance_ami = "ami-084568db4383264d4"
+// SonarQube
+ec2_sonarqube_instance_type = "t2.medium" 
+ec2_sonarqube_instance_ami = "ami-084568db4383264d4"
