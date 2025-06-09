@@ -58,8 +58,8 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 # Install wget if not already installed
 sudo apt-get install -y wget
-# Download the kubeaudit binary from the official GitHub releases page.
-wget https://github.com/Shopify/kubeaudit/releases/download/v0.21.0/kubeaudit_linux_amd64.tar.gz
+# Download the kubeaudit binary from the official GitHub releases page. https://github.com/Shopify/kubeaudit/releases
+# wget <package_url>
 # Unpack the downloaded tar.gz file to extract the kubeaudit binary.
 tar -xvzf kubeaudit_linux_amd64.tar.gz
 # Moves the kubeaudit binary to /usr/local/bin so it can be run from anywhere.

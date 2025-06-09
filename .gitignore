@@ -1,1 +1,2 @@
 infra/assets/ec2_k8s/key-paris/k8s-ec2-key-pair
+infra/assets/ec2_k8s/k8s/master-node-token.txt
