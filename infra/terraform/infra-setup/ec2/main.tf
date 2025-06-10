@@ -46,7 +46,7 @@ variable "ebs_volume_type" {
 resource "aws_instance" "ec2_instance_k8s" {
     ami           = var.ec2_instance_ami
     instance_type = var.ec2_instance_type
-    security_groups = var.security_group_ids
+    vpc_security_group_ids = var.security_group_ids
     key_name = var.key_name
     subnet_id = var.subnet_id
     associate_public_ip_address = var.enable_public_ip
@@ -58,5 +58,5 @@ resource "aws_instance" "ec2_instance_k8s" {
     }
     tags = {
         Name = "${var.project_name}-${var.ec2_instance_name}-instance"
-      }
+    }
 }
