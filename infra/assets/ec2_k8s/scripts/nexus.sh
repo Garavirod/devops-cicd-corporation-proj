@@ -19,7 +19,10 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 # Note: This is not recommended for production environments due to security risks
 sudo chmod 666 /var/run/docker.sock
 
-# Create docker container for SonarQube
-docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
+# Create docker container for Nexus Repository Manager
+# Note: The Nexus container will run on port 8081
+# You can access it via http://<your-server-ip>:8081
+# If you want to run it on a different port, change the -p option accordingly
+docker run -d --name nexus -p 8081:8081 sonatype/nexus3
 # Or this alternative command to ensure it restarts unless stopped
-docker run -d --restart unless-stopped --name sonarqube -p 9000:9000 sonarqube:lts-community
+docker run -d --restart unless-stopped --name nexus -p 8081:8081 sonatype/nexus3
