@@ -50,11 +50,10 @@ resource "aws_instance" "ec2_instance_k8s" {
     key_name = var.key_name
     subnet_id = var.subnet_id
     associate_public_ip_address = var.enable_public_ip
-    ebs_block_device {
-        volume_type = var.ebs_volume_type
-        volume_size = var.ebs_volume_size
-        delete_on_termination = true
-        device_name = "/dev/xvda"
+    root_block_device {
+      volume_type = var.ebs_volume_type
+      volume_size = var.ebs_volume_size
+      delete_on_termination = true
     }
     tags = {
         Name = "${var.project_name}-${var.ec2_instance_name}-instance"
