@@ -58,4 +58,7 @@ resource "aws_instance" "ec2_instance_k8s" {
     tags = {
         Name = "${var.project_name}-${var.ec2_instance_name}-instance"
     }
+    lifecycle {
+      ignore_changes = [associate_public_ip_address] # To avoid delete and recreate the instance when ec2 state changes
+    }
 }
