@@ -95,34 +95,3 @@ module "ec2_sonarqube" {
   ebs_volume_size = 20
   ebs_volume_type = "gp2"
 }
-// EC2 For Nexus
-module "ec2_nexus" {
-  source = "./ec2"
-  project_name = var.project_name
-  environment = var.environment
-  key_name = aws_key_pair.instance_key_pair.key_name
-  subnet_id = module.networking.corporate_public_subnets_ids[0]
-  ec2_instance_name = "nexus"
-  ec2_instance_ami = var.ec2_nexus_instance_ami
-  ec2_instance_type = var.ec2_nexus_instance_type
-  security_group_ids = [module.ecs_k8s_security_groups.sg_ec2_k8s_id]
-  enable_public_ip = true
-  ebs_volume_size = 20
-  ebs_volume_type = "gp2"
-}
-
-// EC2 for jenkins
-module "ec2_jenkins" {
-  source = "./ec2"
-  project_name = var.project_name
-  environment = var.environment
-  key_name = aws_key_pair.instance_key_pair.key_name
-  subnet_id = module.networking.corporate_public_subnets_ids[0]
-  ec2_instance_name = "jenkins"
-  ec2_instance_ami = var.ec2_jenkins_instance_ami
-  ec2_instance_type = var.ec2_jenkins_instance_type
-  security_group_ids = [module.ecs_k8s_security_groups.sg_ec2_k8s_id]
-  enable_public_ip = true
-  ebs_volume_size = 30
-  ebs_volume_type = "gp2"
-}
